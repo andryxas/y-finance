@@ -15,5 +15,10 @@ steps:
 
 - script: |
     mvn package
-    mvn azure-functions:run
+#    mvn azure-functions:run
   displayName: "Build with Maven"
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.jar'
+    targetFolder: '$(build.artifactStagingDirectory)'
