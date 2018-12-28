@@ -7,14 +7,6 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: | 
-    echo Starting the build
-    az 
-  displayName: 'Check an Azure CLI'
-
 - task: NodeTool@0 
   inputs:
     versionSpec: '11.x' # replace this value with the version that you need for your project
@@ -30,4 +22,4 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    goals: 'clean package'
+    goals: 'package'
