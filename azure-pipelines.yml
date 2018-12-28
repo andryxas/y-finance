@@ -13,5 +13,7 @@ steps:
 
 - script: npm install -g azure-functions-core-tools@core  
 
-- script: mvn package
+- script: |
+    mvn package
+    mvn azure-functions:run
   displayName: "Build with Maven"
