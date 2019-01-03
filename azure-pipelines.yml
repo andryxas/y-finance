@@ -11,9 +11,9 @@ steps:
   inputs:
     versionSpec: '11.x' # replace this value with the version that you need for your project
 
-- script: npm install -g azure-functions-core-tools@core  
-
-- script: mvn clean package
+- script: |
+    npm install -g azure-functions-core-tools@core
+    mvn clean package
   displayName: "Build with Maven"
 
 - task: CopyFiles@2
@@ -30,3 +30,11 @@ steps:
 
 - script: mvn azure-functions:deploy
   displayName: "Deploy with Maven"    
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    connectionType: 'AzureRM' 
+    azureSubscription: 'VSEConnection'
+    appType: 'webApp'
+    WebAppName: cts-functions-20181227153515080
+    Package: '$(Build.ArtifactStagingDirectory)/**/*.jar'
