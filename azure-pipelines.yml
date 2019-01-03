@@ -13,22 +13,20 @@ steps:
 
 - script: npm install -g azure-functions-core-tools@core  
 
-- script: |
-    mvn clean package
-#    mvn azure-functions:deploy
-#    mvn azure-functions:run
+- script: mvn clean package
   displayName: "Build with Maven"
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs: 
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: |
-      **/*.jar
-      pom.xml
+    Contents: '**/*.jar'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+
+- script: mvn azure-functions:deploy
+  displayName: "Deploy with Maven"    
